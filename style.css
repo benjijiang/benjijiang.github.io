@@ -1,0 +1,422 @@
+/* 根据 ATW-01_02.svg 精确复刻 */
+/* 目标画布: 800 × 600 (横向) */
+/* 缩放因子: X=1.3445, Y=0.7126 */
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f5f5f5;
+  font-family: 'Special Elite', 'American Typewriter', 'Courier New', monospace;
+}
+
+.canvas {
+  position: relative;
+  width: 800px;
+  height: 600px;
+  background: #ffffff;
+  overflow: hidden;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* 内容缩放层 - 放大1.2倍，向右下各偏移100px */
+.content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 90px;
+  top: 80px;
+  transform: scale(1.2);
+  transform-origin: center center;
+}
+
+/* ========== 左侧灰色三角形 (path38) ========== */
+/* SVG 顶点: (272.83, 801.49), (209.48, 459.17), (183.59, 464.99) */
+/* CSS Y = 841.89 - SVG_Y */
+/* 顶点: (272.83, 40.4), (209.48, 382.72), (183.59, 376.9) */
+.triangle-left {
+  position: absolute;
+  width: 595px;
+  height: 842px;
+  background: #efefef;
+  clip-path: polygon(272.83px 40.4px, 209.48px 382.72px, 183.59px 376.9px);
+}
+
+/* ========== 右侧灰色三角形 (path108) ========== */
+/* SVG 顶点: (578.98, 414.53), (344.50, 801.44), (399.58, 829.86) */
+/* CSS 顶点: (578.98, 427.36), (344.50, 40.45), (399.58, 12.03) */
+.triangle-right {
+  position: absolute;
+  width: 595px;
+  height: 842px;
+  background: #efefef;
+  clip-path: polygon(578.98px 427.36px, 344.5px 40.45px, 399.58px 12.03px);
+}
+
+/* ========== 绿色双色椭圆 (path66 + path80白色遮罩) ========== */
+/* SVG: 深绿色椭圆 + 白色矩形覆盖左半 = 右半深绿，左半透明 */
+/* 填充 #093c07, 描边 #206100 0.75px */
+.green-ellipse {
+  position: absolute;
+  left: 178px;
+  top: 152px;
+  width: 112px;
+  height: 51px;
+  border-radius: 50%;
+  background: linear-gradient(to right, transparent 50%, #093c07 50%);
+  border: 0.75px solid #206100;
+}
+
+/* ========== 通用斜线样式 ========== */
+.line {
+  position: absolute;
+  transform-origin: 0 0;
+  background: #000000;
+}
+
+/* ========== 黑色斜线 ========== */
+
+/* path212: 左侧长斜线 - 向下延伸 */
+/* SVG: origin (255.42, 481.34), 长168, 矩阵旋转约 -75° */
+/* CSS: top = 841.89 - 481.34 = 360.55 */
+.line-1 {
+  left: 250px;
+  top: 362px;
+  width: 168px;
+  height: 2px;
+  transform: rotate(-105deg);
+}
+
+/* path194: 右侧长斜线 - 向右下延伸 */
+/* SVG: origin (424.25, 498.09), 长226, 旋转约 76° */
+/* CSS: top = 841.89 - 498.09 = 343.8 */
+.line-2 {
+  left: 422px;
+  top: 350px;
+  width: 235px;
+  height: 2.5px;
+  transform: rotate(-76deg);
+}
+
+/* path56: 椭圆附近斜线 */
+/* SVG: origin (257.38, 656.11), 长101, 旋转约 81° */
+/* CSS: top = 841.89 - 656.11 = 185.78 */
+.line-3 {
+  left: 261px;
+  top: 156px;
+  width: 70px;
+  height: 2px;
+  transform: rotate(-81deg);
+}
+
+/* path230: 右侧细斜线 */
+/* SVG: (391.52, 496.02), 长87, 旋转 -72° */
+/* CSS: top = 841.89 - 496.02 = 345.87 */
+.line-4 {
+  left: 363px;
+  top: 266px;
+  width: 87px;
+  height: 0.25px;
+  transform: rotate(72deg);
+}
+
+/* path248: 右侧细斜线 */
+/* SVG: (465.65, 481.19), 长127, 旋转 -54° */
+/* CSS: top = 841.89 - 481.19 = 360.7 */
+.line-5 {
+  left: 392px;
+  top: 261px;
+  width: 127px;
+  height: 0.25px;
+  transform: rotate(54deg);
+}
+
+/* path320: 文字上方水平线 */
+/* SVG: (197.29, 585.85), 长96, 旋转约 -170° (向左) */
+/* CSS: top = 841.89 - 585.85 = 256.04 */
+.line-6 {
+  left: 102px;
+  top: 235px;
+  width: 96px;
+  height: 1px;
+  transform: rotate(10deg);
+}
+
+/* path338: 左下长斜线 */
+/* SVG: origin (272.44, 505.43), 长219, 旋转约 160° (向左下) */
+/* CSS: top = 841.89 - 505.43 = 336.46 */
+.line-7 {
+  left: 273px;
+  top: 337px;
+  width: 219px;
+  height: 1px;
+  transform: rotate(160deg);
+}
+
+/* path356: 文字左侧短线 */
+/* SVG: (177.15, 575.2), 长46, 接近水平 */
+/* CSS: top = 841.89 - 575.2 = 266.69 */
+.line-8 {
+  left: 122px;
+  top: 262px;
+  width: 50px;
+  height: 0.75px;
+  transform: rotate(5deg);
+}
+
+/* path426: 文字下方斜线 */
+/* SVG: (177.17, 545.49), 长61, 旋转约 8° */
+/* CSS: top = 841.89 - 545.49 = 296.4 */
+.line-9 {
+  left: 110px;
+  top: 303px;
+  width: 61px;
+  height: 1px;
+  transform: rotate(-8deg);
+}
+
+/* path126: 右侧斜线 */
+/* SVG: (478.61, 665.16), 长147, 旋转约 -68° */
+/* CSS: top = 841.89 - 665.16 = 176.73 */
+.line-10 {
+  left: 425px;
+  top: 45px;
+  width: 147px;
+  height: 1px;
+  transform: rotate(68deg);
+}
+
+/* ========== 垂直条纹组 ========== */
+/* SVG X范围: 328.95 ~ 354.77, Y范围: 497.98 ~ 801.62 */
+/* CSS: left=329, top = 841.89 - 801.62 = 40.27 */
+.vertical-group {
+  position: absolute;
+  left: 329px;
+  top: 40px;
+  width: 26px;
+  height: 304px;
+}
+
+.vline {
+  position: absolute;
+  display: block;
+  background: #000000;
+  cursor: pointer;
+  transition: transform 0.8s ease;
+  text-decoration: none;
+}
+
+.vline:hover {
+  transform: translateY(-10px);
+}
+
+.v3:hover {
+  transform: none;
+}
+
+/* path176: x=328.95, 宽1.17, 高165.6 */
+.v1 {
+  left: 0;
+  top: 138px;
+  width: 1.2px;
+  height: 166px;
+}
+.v1::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: -3.4px;
+}
+
+/* path166: x=337.12, 宽1.53, 高173.9 */
+.v2 {
+  left: 8px;
+  top: 130px;
+  width: 1.5px;
+  height: 174px;
+}
+.v2::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -3.4px;
+  right: -1.75px;
+}
+
+/* path136: x=342.5, 宽3.58, 高302.6 - 最长的粗线 */
+.v3 {
+  left: 13px;
+  top: 1px;
+  width: 4px;
+  height: 303px;
+  cursor: default;
+}
+
+/* path146: x=350.7, 宽1.17, 高165.6 */
+.v4 {
+  left: 22px;
+  top: 138px;
+  width: 1.2px;
+  height: 166px;
+}
+.v4::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -2.5px;
+  right: -0.9px;
+}
+
+/* path156: x=353.6, 宽1.17, 高165.6 */
+.v5 {
+  left: 25px;
+  top: 138px;
+  width: 1.2px;
+  height: 166px;
+}
+.v5::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -0.9px;
+  right: -5px;
+}
+
+/* ========== 红色线条 ========== */
+
+/* path266: 红色斜线 */
+/* SVG: (297.72, 487.65), 长96, 旋转71° */
+/* CSS: top = 841.89 - 487.65 = 354.24 */
+.line-red-1 {
+  left: 298px;
+  top: 354px;
+  width: 96px;
+  height: 1px;
+  background: #b51700;
+  transform: rotate(-71deg);
+}
+
+/* path284: 红色斜线 */
+/* SVG: (364.73, 496.05), 长79, 旋转82° */
+/* CSS: top = 841.89 - 496.05 = 345.84 */
+.line-red-2 {
+  left: 355px;
+  top: 270px;
+  width: 79px;
+  height: 1px;
+  background: #b51700;
+  transform: rotate(82deg);
+}
+
+/* path302: 红色垂直粗线 */
+/* SVG: x=337.57~343.57 (宽6), Y从498.15到591.75 (高93.6) */
+/* CSS: left=338, top = 841.89 - 591.75 = 250.14 */
+.line-red-main {
+  left: 338px;
+  top: 250px;
+  width: 4px;
+  height: 94px;
+  background: #b51700;
+}
+
+/* ========== 文字样式 ========== */
+/* "Follow the" 使用递减字号 */
+/* SVG: 位于clipPath364, 旋转-3度 */
+
+.text-follow {
+  position: absolute;
+  left: 127px;
+  top: 264px;
+  transform: rotate(3deg);
+  white-space: nowrap;
+}
+
+/* F o l l - 8px */
+.f1, .f2, .f3, .f4 { font-size: 8px; }
+/* o - 7px */
+.f5 { font-size: 7px; }
+/* w - 6px */
+.f6 { font-size: 6px; }
+/* 空格 */
+.space { display: inline-block; width: 3px; }
+/* t - 6px */
+.f7 { font-size: 6px; }
+/* he - 5px */
+.f8, .f9 { font-size: 5px; }
+
+/* "White rabbit" 使用递减字号 */
+/* SVG: 位于clipPath434, 旋转5度 */
+
+.text-white {
+  position: absolute;
+  left: 117px;
+  top: 282px;
+  transform: rotate(-5deg);
+  white-space: nowrap;
+}
+
+/* W h i t - 7px */
+.w1, .w2, .w3, .w4 { font-size: 7px; }
+/* e - 6px */
+.w5 { font-size: 6px; }
+/* rabbit - 5.5px */
+.w6, .w7, .w8, .w9, .w10, .w11 { font-size: 5.5px; }
+
+/* 闪烁光标 */
+.text-white::after {
+  content: "_";
+  font-size: 6.5px;
+  margin-left: -2px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 50% { visibility: visible; }
+  51%, 100% { visibility: hidden; }
+}
+
+/* ========== 红色轮廓胶囊 (path478) ========== */
+/* SVG: 胶囊形状, 旋转后垂直放置 */
+/* origin (187.40, 516.49), 宽28.4, 高14.2, 圆角7.1 */
+/* CSS: top = 841.89 - 516.49 - 28.4 = 297 */
+.red-capsule {
+  position: absolute;
+  display: block;
+  left: 184px;
+  top: 294px;
+  width: 17px;
+  height: 31px;
+  border: 1px solid #b51700;
+  border-radius: 8.5px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.1s ease;
+  text-decoration: none;
+}
+
+.red-capsule:hover {
+  background: #b51700;
+}
+
+/* ========== 响应式 ========== */
+@media (max-width: 640px) {
+  .canvas {
+    width: 100vw;
+    height: auto;
+    aspect-ratio: 595 / 842;
+    max-height: 100vh;
+  }
+}

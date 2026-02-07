@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>_</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: #000000;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .typing-container {
+      color: #ffffff;
+      font-family: 'Special Elite', 'American Typewriter', 'Courier New', monospace;
+      font-size: 25px;
+      text-align: center;
+      max-width: 90vw;
+      word-wrap: break-word;
+      line-height: 1.4;
+    }
+
+    .cursor {
+      animation: blink 1s step-end infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { visibility: visible; }
+      51%, 100% { visibility: hidden; }
+    }
+
+    .back-capsule {
+      position: fixed;
+      top: 24px;
+      left: 24px;
+      width: 19px;
+      height: 34px;
+      border: 1px solid #ffffff;
+      border-radius: 9.5px;
+      background: transparent;
+      cursor: pointer;
+      transition: background 0.1s ease;
+    }
+
+    .back-capsule:hover {
+      background: #ffffff;
+    }
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-capsule"></a>
+  <div class="typing-container"><span class="text"></span><span class="cursor">_</span></div>
+
+  <script>
+    const textEl = document.querySelector('.text');
+    let text = '';
+
+    // 允许的字符：英文字母、数字、基本符号
+    const allowedPattern = /^[a-zA-Z0-9 .,!?;:'"()\-_=+@#$%^&*<>/\\[\]{}|`~\n]$/;
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace') {
+        text = text.slice(0, -1);
+        updateText();
+        e.preventDefault();
+      } else if (e.key === 'Enter') {
+        text += '\n';
+        updateText();
+        e.preventDefault();
+      } else if (e.key.length === 1 && allowedPattern.test(e.key)) {
+        text += e.key;
+        updateText();
+        e.preventDefault();
+      }
+    });
+
+    function updateText() {
+      // 将换行符转换为 <br>
+      textEl.innerHTML = text.replace(/\n/g, '<br>');
+    }
+  </script>
+</body>
+</html>
