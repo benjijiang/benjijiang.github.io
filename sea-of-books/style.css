@@ -1,0 +1,79 @@
+body {
+  background: #ffffff;
+}
+
+/* Expand vertical-group to cover all bars' real extent */
+.phase-transform .vertical-group {
+  left: 299px;
+  width: 86px;
+}
+
+/* Sea of Books: extra page bars (unique to this page) */
+.sea-bar {
+  position: absolute;
+  display: block;
+  background: #000000;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* === Left pages (outer to inner) — all +30px === */
+.sb-l8 { left: 0px;   top: 1px; width: 0.5px;  height: 303px; }
+.sb-l7 { left: 5px;   top: 1px; width: 0.5px;  height: 303px; }
+.sb-l6 { left: 9px;   top: 1px; width: 0.75px; height: 303px; }
+.sb-l5 { left: 14px;  top: 1px; width: 0.5px;  height: 303px; }
+.sb-l4 { left: 18px;  top: 1px; width: 0.75px; height: 303px; }
+.sb-l3 { left: 22px;  top: 1px; width: 0.5px;  height: 303px; }
+.sb-l2 { left: 26px;  top: 1px; width: 0.75px; height: 303px; }
+.sb-l1 { left: 29px;  top: 1px; width: 0.5px;  height: 303px; }
+.sb-l0 { left: 35px;  top: 1px; width: 0.5px;  height: 303px; }
+
+/* === Center spine extras — +30px === */
+.sb-c1 { left: 39px;  top: 1px; width: 0.5px;  height: 303px; }
+.sb-c2 { left: 41px;  top: 1px; width: 0.75px; height: 303px; }
+.sb-c3 { left: 46px;  top: 1px; width: 0.75px; height: 303px; }
+.sb-c4 { left: 49px;  top: 1px; width: 0.5px;  height: 303px; }
+
+/* === Right pages (inner to outer) — +30px === */
+.sb-r0 { left: 52px;  top: 1px; width: 0.5px;  height: 303px; }
+.sb-r1 { left: 57px;  top: 1px; width: 0.5px;  height: 303px; }
+.sb-r2 { left: 60px;  top: 1px; width: 0.75px; height: 303px; }
+.sb-r3 { left: 63px;  top: 1px; width: 0.5px;  height: 303px; }
+.sb-r4 { left: 66px;  top: 1px; width: 0.75px; height: 303px; }
+.sb-r5 { left: 72px;  top: 1px; width: 0.5px;  height: 303px; }
+.sb-r6 { left: 76px;  top: 1px; width: 0.75px; height: 303px; }
+.sb-r7 { left: 80px;  top: 1px; width: 0.5px;  height: 303px; }
+.sb-r8 { left: 85px;  top: 1px; width: 0.5px;  height: 303px; }
+
+/* v1–v5 positions +30px (override base.css phase-transform) */
+.phase-transform .v1 { left: 11px; }
+.phase-transform .v2 { left: 32px; }
+.phase-transform .v3 { left: 43px; }
+.phase-transform .v4 { left: 55px; }
+.phase-transform .v5 { left: 70px; }
+
+/* Red lines: spring-back transition for drag interaction */
+.line-red-1,
+.line-red-2,
+.line-red-main {
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* v3 (spine) is interactive on this page */
+.v3 {
+  cursor: pointer;
+  transition: transform 0.8s ease;
+}
+
+.v3:hover {
+  transform: scaleX(3.0);
+}
+
+/* Extra bars fade in on load */
+@keyframes sea-fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.sea-bar:not(.v1):not(.v2):not(.v3):not(.v4):not(.v5) {
+  animation: sea-fadein 0.8s ease 0.3s both;
+}

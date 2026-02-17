@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>_</title>
+  <link rel="stylesheet" href="../base.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="../index.html" class="back-capsule"></a>
+  <div class="typing-container"><span class="text"></span><span class="cursor">_</span></div>
+
+  <script>
+    const textEl = document.querySelector('.text');
+    let text = '';
+    const allowedPattern = /^[a-zA-Z0-9 .,!?;:'"()\-_=+@#$%^&*<>/\\[\]{}|`~\n]$/;
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace') {
+        text = text.slice(0, -1);
+        updateText();
+        e.preventDefault();
+      } else if (e.key === 'Enter') {
+        text += '\n';
+        updateText();
+        e.preventDefault();
+      } else if (e.key.length === 1 && allowedPattern.test(e.key)) {
+        text += e.key;
+        updateText();
+        e.preventDefault();
+      }
+    });
+
+    function updateText() {
+      textEl.innerHTML = text.replace(/\n/g, '<br>');
+    }
+  </script>
+</body>
+</html>

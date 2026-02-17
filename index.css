@@ -1,0 +1,164 @@
+.triangle-left {
+  position: absolute;
+  width: 595px;
+  height: 842px;
+  background: #efefef;
+  clip-path: polygon(272.83px 40.4px, 209.48px 382.72px, 183.59px 376.9px);
+}
+
+.triangle-right {
+  position: absolute;
+  width: 595px;
+  height: 842px;
+  background: #efefef;
+  clip-path: polygon(578.98px 427.36px, 344.5px 40.45px, 399.58px 12.03px);
+}
+
+.green-ellipse {
+  position: absolute;
+  left: 178px;
+  top: 152px;
+  width: 112px;
+  height: 51px;
+  border-radius: 50%;
+  background: linear-gradient(to right, transparent 50%, #093c07 50%);
+  border: 0.75px solid #206100;
+}
+
+.line-1 {
+  left: 250px;
+  top: 362px;
+  width: 168px;
+  height: 2px;
+  transform: rotate(-105deg);
+}
+
+.line-2 {
+  left: 422px;
+  top: 350px;
+  width: 235px;
+  height: 2.5px;
+  transform: rotate(-76deg);
+}
+
+.line-3 {
+  left: 261px;
+  top: 156px;
+  width: 70px;
+  height: 2px;
+  transform: rotate(-81deg);
+}
+
+.line-4 {
+  left: 363px;
+  top: 266px;
+  width: 87px;
+  height: 0.25px;
+  transform: rotate(72deg);
+}
+
+.line-5 {
+  left: 392px;
+  top: 261px;
+  width: 127px;
+  height: 0.25px;
+  transform: rotate(54deg);
+}
+
+.line-6 {
+  left: 102px;
+  top: 235px;
+  width: 96px;
+  height: 1px;
+  transform: rotate(10deg);
+}
+
+.line-7 {
+  left: 273px;
+  top: 337px;
+  width: 219px;
+  height: 1px;
+  transform: rotate(160deg);
+}
+
+.line-8 {
+  left: 122px;
+  top: 262px;
+  width: 50px;
+  height: 0.75px;
+  transform: rotate(5deg);
+}
+
+.line-9 {
+  left: 110px;
+  top: 303px;
+  width: 61px;
+  height: 1px;
+  transform: rotate(-8deg);
+}
+
+.line-10 {
+  left: 425px;
+  top: 45px;
+  width: 147px;
+  height: 1px;
+  transform: rotate(68deg);
+}
+
+.text-follow {
+  position: absolute;
+  left: 127px;
+  top: 264px;
+  transform: rotate(3deg);
+  white-space: nowrap;
+}
+
+.f1, .f2, .f3, .f4 { font-size: 8px; }
+.f5 { font-size: 7px; }
+.f6 { font-size: 6px; }
+.space { display: inline-block; width: 3px; }
+.f7 { font-size: 6px; }
+.f8, .f9 { font-size: 5px; }
+
+.text-white {
+  position: absolute;
+  left: 117px;
+  top: 282px;
+  transform: rotate(-5deg);
+  white-space: nowrap;
+}
+
+.w1, .w2, .w3, .w4 { font-size: 7px; }
+.w5 { font-size: 6px; }
+.w6, .w7, .w8, .w9, .w10, .w11 { font-size: 5.5px; }
+
+.text-white::after {
+  content: "_";
+  font-size: 6.5px;
+  margin-left: -2px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 50% { visibility: visible; }
+  51%, 100% { visibility: hidden; }
+}
+
+.red-capsule {
+  position: absolute;
+  display: block;
+  left: 184px;
+  top: 294px;
+  width: 17px;
+  height: 31px;
+  border: 1px solid #b51700;
+  border-radius: 8.5px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.1s ease;
+  text-decoration: none;
+}
+
+.red-capsule:hover {
+  background: #b51700;
+}

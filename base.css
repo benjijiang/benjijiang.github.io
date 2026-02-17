@@ -1,0 +1,330 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  font-family: 'Special Elite', 'American Typewriter', 'Courier New', monospace;
+}
+
+.canvas {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.content {
+  position: absolute;
+  width: 680px;
+  height: 440px;
+  left: 48%;
+  top: 50%;
+  transform: translate(-45%, -50%) scale(1.2);
+  transform-origin: center center;
+}
+
+/* ====== Shared line base ====== */
+
+.line {
+  position: absolute;
+  transform-origin: 0 0;
+  background: #000000;
+}
+
+/* ====== Vertical group + vlines ====== */
+
+.vertical-group {
+  position: absolute;
+  left: 329px;
+  top: 40px;
+  width: 26px;
+  height: 304px;
+}
+
+.vline {
+  position: absolute;
+  display: block;
+  background: #000000;
+  cursor: pointer;
+  transition: transform 0.8s ease;
+  text-decoration: none;
+}
+
+.vline:hover {
+  transform: translateY(-10px);
+}
+
+.v3:hover {
+  transform: scaleX(1.5);
+}
+
+.v1 {
+  left: 0;
+  top: 138px;
+  width: 1.2px;
+  height: 166px;
+}
+.v1::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: -3.4px;
+}
+
+.v2 {
+  left: 8px;
+  top: 130px;
+  width: 1.5px;
+  height: 174px;
+}
+.v2::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -3.4px;
+  right: -1.75px;
+}
+
+.v3 {
+  left: 13px;
+  top: 1px;
+  width: 4px;
+  height: 303px;
+  cursor: default;
+}
+
+.v4 {
+  left: 22px;
+  top: 138px;
+  width: 1.2px;
+  height: 166px;
+}
+.v4::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -2.5px;
+  right: -0.9px;
+}
+
+.v5 {
+  left: 25px;
+  top: 138px;
+  width: 1.2px;
+  height: 166px;
+}
+.v5::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -0.9px;
+  right: -5px;
+}
+
+/* ====== Red lines ====== */
+
+.line-red-1 {
+  left: 328px;
+  top: 260px;
+  width: 1px;
+  height: 96px;
+  background: #b51700;
+  transform: rotate(19deg);
+}
+
+.line-red-2 {
+  left: 355px;
+  top: 270px;
+  width: 1px;
+  height: 79px;
+  background: #b51700;
+  transform: rotate(-8deg);
+}
+
+.line-red-main {
+  left: 338px;
+  top: 250px;
+  width: 4px;
+  height: 94px;
+  background: #b51700;
+}
+
+/* ====== Shared back button (used on all sub-pages) ====== */
+
+.back-capsule {
+  position: fixed;
+  top: 24px;
+  left: 24px;
+  width: 19px;
+  height: 34px;
+  border: 1px solid #ffffff;
+  border-radius: 9.5px;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.1s ease;
+  text-decoration: none;
+  display: block;
+}
+
+.back-capsule:hover {
+  background: #ffffff;
+}
+
+/* ====== V3 Transition: base transition for kept elements ====== */
+
+.vline,
+.line-red-1,
+.line-red-2,
+.line-red-main {
+  transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              top 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              width 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              height 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.vertical-group {
+  transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              top 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              width 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+              height 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ====== Phase 1: Fade out non-kept elements ====== */
+
+.phase-fadeout .triangle-left,
+.phase-fadeout .triangle-right,
+.phase-fadeout .green-ellipse,
+.phase-fadeout .line-black,
+.phase-fadeout .text-follow,
+.phase-fadeout .text-white,
+.phase-fadeout .red-capsule {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.phase-fadeout .text-white::after {
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+/* ====== Phase 2: Transform kept elements ====== */
+
+.phase-transform.canvas-fade {
+  background: #ffffff;
+  transition: background 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.phase-transform .vertical-group {
+  left: 329px;
+  top: 40px;
+  width: 26px;
+  height: 304px;
+}
+
+.phase-transform .v1 {
+  left: -19px;
+  top: 1px;
+  width: 1px;
+  height: 303px;
+}
+
+.phase-transform .v2 {
+  left: 2px;
+  top: 1px;
+  width: 2px;
+  height: 303px;
+}
+
+.phase-transform .v3 {
+  left: 13px;
+  top: 1px;
+  width: 4px;
+  height: 303px;
+}
+
+.phase-transform .v4 {
+  left: 25px;
+  top: 1px;
+  width: 1px;
+  height: 303px;
+}
+
+.phase-transform .v5 {
+  left: 40px;
+  top: 1px;
+  width: 1px;
+  height: 303px;
+}
+
+.phase-transform .line-red-main {
+  left: 338px;
+  top: 41px;
+  width: 4px;
+  height: 303px;
+  transform: rotate(0deg);
+}
+
+.phase-transform .line-red-1 {
+  left: 298px;
+  top: 41px;
+  width: 1px;
+  height: 303px;
+  transform: rotate(0deg);
+}
+
+.phase-transform .line-red-2 {
+  left: 375px;
+  top: 41px;
+  width: 1px;
+  height: 303px;
+  transform: rotate(0deg);
+}
+
+.phase-transform .triangle-left,
+.phase-transform .triangle-right,
+.phase-transform .green-ellipse,
+.phase-transform .line-black,
+.phase-transform .text-follow,
+.phase-transform .text-white,
+.phase-transform .red-capsule {
+  display: none;
+}
+
+/* ====== Reverse animation helpers ====== */
+
+.no-transition,
+.no-transition .vline,
+.no-transition .line-red-1,
+.no-transition .line-red-2,
+.no-transition .line-red-main,
+.no-transition .vertical-group {
+  transition: none !important;
+}
+
+.phase-fadein .triangle-left,
+.phase-fadein .triangle-right,
+.phase-fadein .green-ellipse,
+.phase-fadein .line-black,
+.phase-fadein .text-follow,
+.phase-fadein .text-white,
+.phase-fadein .red-capsule {
+  transition: opacity 0.6s ease;
+}
+
+.phase-fadein .text-white::after {
+  transition: opacity 0.6s ease;
+}
