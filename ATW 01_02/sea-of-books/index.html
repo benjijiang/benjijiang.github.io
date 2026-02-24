@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sea of Books</title>
+  <link rel="stylesheet" href="../base.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a href="../index.html?from=sea" class="back-capsule"></a>
+  <div class="canvas phase-transform">
+    <div class="content">
+      <div class="vertical-group">
+        <!-- Left pages -->
+        <div class="sea-bar sb-l8"></div>
+        <div class="sea-bar sb-l7"></div>
+        <div class="sea-bar sb-l6"></div>
+        <div class="sea-bar v1"></div>
+        <div class="sea-bar sb-l5"></div>
+        <div class="sea-bar sb-l4"></div>
+        <div class="sea-bar sb-l3"></div>
+        <div class="sea-bar sb-l2"></div>
+        <div class="sea-bar sb-l1"></div>
+        <div class="sea-bar v2"></div>
+        <div class="sea-bar sb-l0"></div>
+        <!-- Center -->
+        <div class="sea-bar sb-c1"></div>
+        <div class="sea-bar sb-c2"></div>
+        <a href="../index.html?from=sea" class="sea-bar v3"></a>
+        <div class="sea-bar sb-c3"></div>
+        <div class="sea-bar sb-c4"></div>
+        <!-- Right pages -->
+        <div class="sea-bar sb-r0"></div>
+        <div class="sea-bar v4"></div>
+        <div class="sea-bar sb-r1"></div>
+        <div class="sea-bar sb-r2"></div>
+        <div class="sea-bar sb-r3"></div>
+        <div class="sea-bar sb-r4"></div>
+        <div class="sea-bar v5"></div>
+        <div class="sea-bar sb-r5"></div>
+        <div class="sea-bar sb-r6"></div>
+        <div class="sea-bar sb-r7"></div>
+        <div class="sea-bar sb-r8"></div>
+      </div>
+
+      <div class="line line-red-1"></div>
+      <div class="line line-red-2"></div>
+      <div class="line line-red-main"></div>
+    </div>
+  </div>
+
+  <script>
+    var group = document.querySelector('.vertical-group');
+    var content = document.querySelector('.content');
+    var seaBars = Array.from(group.querySelectorAll('.sea-bar'));
+    var redLines = Array.from(content.querySelectorAll('.line-red-1, .line-red-2, .line-red-main'));
+    var allBars = seaBars.concat(redLines);
+    var v3 = document.querySelector('.v3');
+    var isDragging = false;
+    var hasMoved = false;
+
+    document.addEventListener('mousedown', function (e) {
+      isDragging = true;
+      hasMoved = false;
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', function (e) {
+      if (!isDragging) return;
+      hasMoved = true;
+
+      var groupRect = group.getBoundingClientRect();
+      var maxShift = 15;
+      var radius = 30;
+
+      allBars.forEach(function (bar) {
+        var barRect = bar.getBoundingClientRect();
+        var barCenterX = barRect.left + barRect.width / 2;
+        var dist = e.clientX - barCenterX;
+        var absDist = Math.abs(dist);
+
+        if (absDist < radius) {
+          var strength = 1 - absDist / radius;
+          strength *= strength;
+          var shift = -Math.sign(dist) * maxShift * strength;
+          bar.style.transform = 'translateX(' + shift + 'px)';
+        } else {
+          bar.style.transform = '';
+        }
+      });
+    });
+
+    document.addEventListener('mouseup', function () {
+      if (!isDragging) return;
+      isDragging = false;
+      allBars.forEach(function (bar) {
+        bar.style.transform = '';
+      });
+    });
+
+    v3.addEventListener('click', function (e) {
+      if (hasMoved) e.preventDefault();
+    });
+  </script>
+</body>
+</html>
