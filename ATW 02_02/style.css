@@ -1,64 +1,58 @@
-.animation{
-    transition: 1s;
-  }
+.animation {
+  transition: 1s;
+}
 
-  .image {
-    grid-column: 1 / -1;      /* take whole row */
-    display: flex;
-    justify-content: center;  /* center horizontally */
-    align-items: center;
-  }
-  
-  .image img {
-    width: 40px;            
-    height: auto;
-    padding: 10px;
-  }
-
-  body {
-    background: 225;
-    transition: 1s;
-  }
-  
 body {
-    margin: 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    row-gap: 35px;
-    column-gap: 16px;
-    padding: 40px;
-  }
+  margin: 0;
+  padding: 2vw;
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 2vw;
+  column-gap: 1.2vw;
+  transition: background-color 0.8s ease;
+}
 
-  #c1, #c2, #c3, #c4, #c5, #c6 {
-    display: flex;
-    justify-content: center;
-  }
-  
-  @media only screen and (max-width: 400px) {
-    body {
-      grid-template-columns: 1fr; 
-      justify-items: center;      
-    }
-  
-    #c1, #c2, #c3, #c4, #c5, #c6 {
-      width: fit-content;        
-      margin-top: 20px;
-    }
-  }
+#c1, #c2, #c3, #c4, #c5, #c6 {
+  display: flex;
+  justify-content: center;
+}
 
-  #c1:hover, #c1:hover~ .animation, #c1:hover ~ .image{
-    filter: invert(100%);
-  }
+.image {
+  grid-column: 1 / -1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
-  body:has(#c1:hover) {
-    background: black;
-  }
+.image img {
+  width: 40px;
+  height: auto;
+  padding: 10px;
+}
 
-/* 
-#c1, #c2, #c3 {
-    padding: 10px;
-    width: 20vw;
-    height: 50vh;
-    margin-left: 30vw;
-    margin-top: 0vh;
-  } */
+@media (min-width: 800px) {
+  body {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1200px) {
+  body {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 2000px) {
+  body {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+#c1:hover, #c1:hover ~ .animation, #c1:hover ~ .image {
+  filter: invert(100%);
+}
+
+body:has(#c1:hover) {
+  background: #000000;
+}
