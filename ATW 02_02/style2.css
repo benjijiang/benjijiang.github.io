@@ -1,0 +1,29 @@
+  .image { 
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+  }
+
+.image img{
+    width: 50px;
+ }
+
+ #c1 img, #c2 img, #c3 img, #c4 img {
+    width: 250px;            
+    height: auto;
+    padding: 100px;
+ }
+
+.center {
+    display: flex;
+    justify-content: center;
+}
+
+/* 
+#c1, #c2, #c3 {
+    padding: 10px;
+    width: 20vw;
+    height: 50vh;
+    margin-left: 30vw;
+    margin-top: 0vh;
+  } */
