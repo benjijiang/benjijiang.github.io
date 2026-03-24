@@ -1,0 +1,24 @@
+#cssgrid {
+  min-height: 100vh;      /* full viewport height */
+  display: grid;
+  place-items: center;    /* center horizontally + vertically */
+}
+
+.cssgridwrapper {
+  transition: transform 1.2s ease-in-out;
+  display: grid;
+  grid-template-columns: 100px 100px;
+  grid-template-rows: 100px 100px;
+}
+
+.cssgridwrapper .cell{
+  display: block;
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.cssgridwrapper {
+  border-top: 1px solid black;
+  border-left: 1px solid black;
+}
+

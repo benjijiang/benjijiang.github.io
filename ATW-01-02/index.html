@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Follow the White Rabbit</title>
+  <link rel="stylesheet" href="base.css">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+  <div class="canvas">
+    <div class="content">
+      <div class="triangle-left"></div>
+      <div class="triangle-right"></div>
+
+      <a href="grid/index.html" class="green-ellipse"><a>
+
+      <div class="line line-black line-1"></div>
+      <div class="line line-black line-2"></div>
+      <div class="line line-black line-3"></div>
+      <div class="line line-black line-4"></div>
+      <div class="line line-black line-5"></div>
+      <div class="line line-black line-6"></div>
+      <div class="line line-black line-7"></div>
+      <div class="line line-black line-8"></div>
+      <div class="line line-black line-9"></div>
+      <div class="line line-black line-10"></div>
+
+      <div class="vertical-group">
+        <a href="walden/index.html" class="vline v1"></a>
+        <a href="sisyphus/index.html" class="vline v2"></a>
+        <a href="sea-of-books/index.html" class="vline v3"></a>
+        <a href="catcher/index.html" class="vline v4"></a>
+        <a href="stranger/index.html" class="vline v5"></a>
+      </div>
+
+      <div class="line line-red-1"></div>
+      <div class="line line-red-2"></div>
+      <div class="line line-red-main"></div>
+
+      <div class="text-follow">
+        <span class="f1">F</span><span class="f2">o</span><span class="f3">l</span><span class="f4">l</span><span class="f5">o</span><span class="f6">w</span><span class="space"></span><span class="f7">t</span><span class="f8">h</span><span class="f9">e</span>
+      </div>
+
+      <div class="text-white">
+        <span class="w1">W</span><span class="w2">h</span><span class="w3">i</span><span class="w4">t</span><span class="w5">e</span><span class="space"></span><span class="w6">r</span><span class="w7">a</span><span class="w8">b</span><span class="w9">b</span><span class="w10">i</span><span class="w11">t</span>
+      </div>
+
+      <a href="cursor/index.html" class="red-capsule"></a>
+    </div>
+  </div>
+
+  <script>
+    var content = document.querySelector('.content');
+    var canvas = document.querySelector('.canvas');
+
+    /* === Forward: index → Sea of books === */
+    document.querySelector('.v3').addEventListener('click', function (e) {
+      e.preventDefault();
+
+      content.classList.add('phase-fadeout');
+
+      setTimeout(function () {
+        content.classList.add('phase-transform');
+        canvas.classList.add('phase-transform', 'canvas-fade');
+
+        setTimeout(function () {
+          window.location.href = 'sea-of-books/index.html';
+        }, 800);
+      }, 600);
+    });
+
+    /* === Reverse: Sea of books → index === */
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      if (params.get('from') !== 'sea') return;
+
+      history.replaceState(null, '', window.location.pathname);
+
+      canvas.classList.add('no-transition', 'phase-transform');
+      canvas.style.background = '#ffffff';
+      content.classList.add('phase-fadeout');
+
+      void canvas.offsetHeight;
+
+      canvas.classList.remove('no-transition');
+      canvas.style.transition = 'background 2.0s cubic-bezier(0.4, 0, 0.2, 1)';
+      canvas.style.background = '';
+      canvas.classList.remove('phase-transform');
+
+      setTimeout(function () {
+        canvas.style.transition = '';
+        content.classList.add('phase-fadein');
+        content.classList.remove('phase-fadeout');
+
+        setTimeout(function () {
+          content.classList.remove('phase-fadein');
+        }, 600);
+      }, 800);
+    })();
+  </script>
+<!-- Paste this code before </body> -->
+<div id="aow-webring">
+  <style>
+  #aow-webring, #aow-webring *:not(img) {
+    all: revert;
+      box-sizing: border-box;
+      font-family: "Courier New", Courier, monospace;
+    }
+
+    #aow-webring .aow-globe {
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: white;
+      border: 1.5px solid #ccc;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      z-index: 99999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      margin: 0;
+    }
+
+    #aow-webring .aow-globe:hover {
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    #aow-webring .aow-panel {
+      position: fixed;
+      bottom: 76px;
+      right: 16px;
+      width: 260px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(0, 0, 0, 0.12);
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+      padding: 16px;
+      z-index: 99998;
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    #aow-webring .aow-panel.aow-open {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    #aow-webring .aow-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0;
+    }
+
+    #aow-webring .aow-title {
+      font-size: 14px;
+      font-weight: bold;
+      color: #222;
+      margin: 0;
+    }
+
+    #aow-webring .aow-close {
+      background: none;
+      border: none;
+      color: #999;
+      font-size: 16px;
+      cursor: pointer;
+      padding: 0 4px;
+      line-height: 1;
+    }
+
+    #aow-webring .aow-close:hover {
+      color: #333;
+    }
+
+    #aow-webring .aow-divider {
+      border: none;
+      border-top: 1px solid rgba(0, 0, 0, 0.08);
+      margin: 8px 0;
+    }
+
+    #aow-webring .aow-sites {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    #aow-webring .aow-sites li {
+      font-size: 13px;
+      line-height: 36px;
+    }
+
+    #aow-webring .aow-sites a {
+      color: #555;
+      text-decoration: none;
+    }
+
+    #aow-webring .aow-sites a:hover {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    #aow-webring .aow-sites .aow-arrow {
+      color: #999;
+    }
+
+    #aow-webring .aow-sites a:hover .aow-arrow {
+      color: #000;
+    }
+
+    #aow-webring .aow-sites .aow-current {
+      color: #000;
+      text-decoration: none;
+    }
+
+    #aow-webring .aow-nav {
+      text-align: center;
+      font-size: 12px;
+      margin-top: 0;
+    }
+
+    #aow-webring .aow-nav a {
+      color: #666;
+      text-decoration: none;
+    }
+
+    #aow-webring .aow-nav a:hover {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    #aow-webring .aow-nav .aow-sep {
+      color: #999;
+      margin: 0 4px;
+    }
+  </style>
+
+  <button type="button" class="aow-globe" aria-label="Open web ring" title="Art of the Web Ring">
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiMzMzMiIHN0cm9rZS13aWR0aD0iMS44IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjEwIi8+PHBhdGggZD0iTTEyIDJhMTUuMyAxNS4zIDAgMCAxIDQgMTAgMTUuMyAxNS4zIDAgMCAxLTQgMTAgMTUuMyAxNS4zIDAgMCAxLTQtMTAgMTUuMyAxNS4zIDAgMCAxIDQtMTB6Ii8+PHBhdGggZD0iTTIgMTJoMjAiLz48cGF0aCBkPSJNNC41IDYuNWgxNSIvPjxwYXRoIGQ9Ik00LjUgMTcuNWgxNSIvPjwvc3ZnPg==" alt="Web Ring" width="32" height="32" style="display:block;">
+  </button>
+
+  <div class="aow-panel" id="aow-panel" role="dialog" aria-label="Web ring sites">
+    <div class="aow-header">
+      <span class="aow-title">Art of the Web</span>
+      <button type="button" class="aow-close" aria-label="Close">✕</button>
+    </div>
+    <hr class="aow-divider">
+    <ul class="aow-sites" id="aow-sites"></ul>
+    <hr class="aow-divider">
+    <div class="aow-nav" id="aow-nav"></div>
+  </div>
+
+  <script>
+    (function() {
+      const SITES = [
+        { name: "Priya", url: "https://pbhavi22.github.io/" },
+        { name: "Ben", url: "https://benjijiang.github.io/index.html" },
+        { name: "Samir", url: "https://smr-ptk.github.io/art-of-the-web-section1/index.html" },
+        { name: "Olivia", url: "https://liu1310.github.io/s1fp/index.html" },
+        { name: "Joanna", url: "https://joannarr12.github.io/photography_portfolio/index.html" },
+        { name: "Jasmine", url: "https://jasmine-wng.github.io/s1fp/" }
+      ];
+
+      const container = document.getElementById("aow-webring");
+      const globe = container.querySelector(".aow-globe");
+      const panel = document.getElementById("aow-panel");
+      const closeBtn = container.querySelector(".aow-close");
+      const sitesList = document.getElementById("aow-sites");
+      const navEl = document.getElementById("aow-nav");
+
+      const currentHost = window.location.hostname;
+      let currentIndex = -1;
+      SITES.forEach((site, i) => {
+        try {
+          if (new URL(site.url).hostname === currentHost) currentIndex = i;
+        } catch (_) {}
+      });
+
+      SITES.forEach((site, i) => {
+        const li = document.createElement("li");
+        if (i === currentIndex) {
+          li.innerHTML = "● " + site.name;
+          li.classList.add("aow-current");
+      } else {
+        const a = document.createElement("a");
+        a.href = site.url;
+        a.target = "_blank";
+        a.rel = "noopener";
+        a.innerHTML = '<span class="aow-arrow">→ </span>' + site.name;
+        li.appendChild(a);
+      }
+        sitesList.appendChild(li);
+      });
+
+      function goTo(index) {
+        window.location.href = SITES[index].url;
+      }
+
+      function getPrevIndex() {
+        return (currentIndex - 1 + SITES.length) % SITES.length;
+      }
+
+      function getNextIndex() {
+        return (currentIndex + 1) % SITES.length;
+      }
+
+      function getRandomIndex() {
+        let idx;
+        do {
+          idx = Math.floor(Math.random() * SITES.length);
+        } while (idx === currentIndex && SITES.length > 1);
+        return idx;
+      }
+
+      navEl.innerHTML =
+        '<a href="' + SITES[getPrevIndex()].url + '" id="aow-prev">← Prev</a>' +
+        '<span class="aow-sep">·</span>' +
+        '<a href="#" id="aow-random">Random</a>' +
+        '<span class="aow-sep">·</span>' +
+        '<a href="' + SITES[getNextIndex()].url + '" id="aow-next">Next →</a>';
+
+      document.getElementById("aow-prev").addEventListener("click", function(e) {
+        e.preventDefault();
+        goTo(getPrevIndex());
+      });
+      document.getElementById("aow-next").addEventListener("click", function(e) {
+        e.preventDefault();
+        goTo(getNextIndex());
+      });
+      document.getElementById("aow-random").addEventListener("click", function(e) {
+        e.preventDefault();
+        goTo(getRandomIndex());
+      });
+
+      function close() {
+        panel.classList.remove("aow-open");
+      }
+
+      function toggle() {
+        panel.classList.toggle("aow-open");
+      }
+
+      globe.addEventListener("click", toggle);
+      closeBtn.addEventListener("click", close);
+
+      document.addEventListener("click", function(e) {
+        if (panel.classList.contains("aow-open") && !container.contains(e.target)) {
+          close();
+        }
+      });
+
+      document.addEventListener("keydown", function(e) {
+        if (e.key === "Escape" && panel.classList.contains("aow-open")) {
+          close();
+        }
+      });
+    })();
+  </script>
+</div>
+
+</body>
+</html>
