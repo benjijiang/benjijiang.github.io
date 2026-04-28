@@ -16,14 +16,17 @@ let isActive = false;
 let centerX;
 let centerY;
 
-let rainSound;
+let lightrain;
+let midrain;
+let heavyrain;
+
+let currentSound = null;
 
 function preload() {
   soundFormats('mp3');
-  rainSound = loadSound('boons_freak-rain-sound-188158.mp3',
-    () => {},
-    () => { rainSound = null; }
-  );
+  lightrain = loadSound('gentle-rain.mp3');
+  midrain = loadSound('mid-rain.mp3');
+  heavyrain = loadSound('large-rain.mp3');
 }
 
 function setup() {
@@ -58,7 +61,8 @@ function keyPressed() {
     centerY = height / 2;
     frameRate(RAIN_LEVELS[currentLevel].fps);
     loop();
-    if (rainSound) rainSound.loop();
+    matchRain();
+    swapLabel(LEVEL_LABELS[currentLevel]);
     return;
   }
  
@@ -70,22 +74,20 @@ function keyPressed() {
     centerY = height / 2;
     noLoop();
     redraw();
-    if (rainSound) {
-      rainSound.setVolume(0, 1);
-      setTimeout(() => {
-        rainSound.stop();
-        rainSound.setVolume(1);
-      }, 1500);
-    }
+    fadeOut(currentSound);
+    currentSound = null;
+    swapLabel('The rain is ▶ed');
     return;
   };
 
   if (keyCode === UP_ARROW && currentLevel < RAIN_LEVELS.length - 1) {
     currentLevel++;
     applyLevel();
+    matchRain();
   } else if (keyCode === DOWN_ARROW && currentLevel > 0) {
     currentLevel--;
     applyLevel();
+    matchRain();
   }
 }
 
@@ -102,8 +104,7 @@ function applyLevel() {
 
   frameRate(level.fps);
 
-  let label = document.getElementById('rain-label');
-  if (label) label.textContent = LEVEL_LABELS[currentLevel];
+  swapLabel(LEVEL_LABELS[currentLevel]);
 }
 
 class RadialRaindrop {
@@ -144,10 +145,56 @@ class RadialRaindrop {
   }
 }
 
+function swapLabel(newText) {
+  let label = document.getElementById('rain-label');
+  if (!label) return;
+  label.style.opacity = '0';
+  setTimeout(() => {
+    label.textContent = newText;
+    label.style.opacity = '1';
+  }, 400);
+}
+
 function windowResized() {
   if (isActive) {
     resizeCanvas(windowWidth, windowHeight);
     centerX = width / 2;
     centerY = height / 2;
   }
+}
+
+function matchRain() {
+  // 根据 level 决定应该播哪个音
+  let targetSound;
+  if (currentLevel <= 1) {
+    targetSound = lightrain;
+  } else if (currentLevel === 2) {
+    targetSound = midrain;
+  } else {
+    targetSound = heavyrain;
+  }
+
+  // 如果已经是同一个音频在播放，不做任何事
+  if (targetSound === currentSound && currentSound && currentSound.isPlaying()) return;
+
+  // 不同音频：淡出旧的，播放新的
+  fadeOut(currentSound);
+  targetSound.loop();
+  fadeIn(targetSound);
+  currentSound = targetSound;
+}
+
+// sound fadein abstraction
+function fadeIn(sound, duration = 1000) {
+  if (!sound || !sound.isPlaying()) return;
+  sound.setVolume(1, duration / 1000); // p5.js 的 rampTo 时间单位是秒
+}
+
+// sound fadeout abstraction
+function fadeOut(sound, duration = 1000) {
+  if (!sound || !sound.isPlaying()) return;
+  sound.setVolume(0, duration / 1000); // p5.js 的 rampTo 时间单位是秒
+  setTimeout(() => {
+    sound.stop();
+  }, duration + 100); // 稍微多等一点，确保淡出完成
 }
