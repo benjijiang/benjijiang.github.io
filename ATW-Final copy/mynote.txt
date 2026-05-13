@@ -1,0 +1,9 @@
+animation folder: 
+- character (Sprite.png)
+    - walk
+    - idle 
+    - look_up
+- floor line
+- figures
+    - front
+    - back
