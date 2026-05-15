@@ -1,5 +1,5 @@
 // ----- Loading screen animation (runs independently of p5.js) -----
-const LOADER_TOTAL = 21;
+const LOADER_TOTAL = 5;
 let loaderCount = 0;
 let loaderReady = false;
 
@@ -170,6 +170,41 @@ let spriteSheet;
 let fgImage;
 let artImages = {};
 
+// ----- Lazy-load sections -----
+// Each section's images are fetched when the player crosses triggerX,
+// giving ~4000–5000 units of lead time before the artwork appears on screen.
+const LAZY_SECTIONS = [
+  {
+    id: "s2",
+    triggerX: 4000,
+    images: [
+      { key: "02_01_1", file: "VisualAssests/02-01-1.webp" },
+      { key: "02_01_2", file: "VisualAssests/02-01-2.webp" },
+      { key: "02_02_1", file: "VisualAssests/02-02-1.webp" },
+      { key: "02_F_1",  file: "VisualAssests/02-F-1.webp"  },
+      { key: "02_F_2",  file: "VisualAssests/02-F-2.webp"  },
+      { key: "02_F_3",  file: "VisualAssests/02-F-3.webp"  },
+      { key: "02_F_4",  file: "VisualAssests/02-F-4.webp"  },
+      { key: "02_F_5",  file: "VisualAssests/02-F-5.webp"  },
+      { key: "02_F_6",  file: "VisualAssests/02-F-6.webp"  },
+    ]
+  },
+  {
+    id: "s3",
+    triggerX: 20000,
+    images: [
+      { key: "03_01_1", file: "VisualAssests/03-01-1.webp" },
+      { key: "03_01_2", file: "VisualAssests/03-01-2.webp" },
+      { key: "03_01_3", file: "VisualAssests/03-01-3.webp" },
+      { key: "03_01_4", file: "VisualAssests/03-01-4.webp" },
+      { key: "03_02",   file: "VisualAssests/03-02.webp"   },
+      { key: "03_03",   file: "VisualAssests/03-03.webp"   },
+      { key: "4_F",     file: "VisualAssests/4F.webp"      },
+    ]
+  }
+];
+const loadedSectionIds = new Set();
+
 // ----- World / player / input -----
 let player;
 let cameraX = 0;
@@ -211,29 +246,13 @@ let lastActivityTime = 0;
 let instructionShown = true;
 
 function preload() {
-  spriteSheet = loadImage("VisualAssests/Animation/Sprite.webp", loaderTrack);
-  fgImage     = loadImage("VisualAssests/foreground.webp", loaderTrack);
-  artImages["01_01"]   = loadImage("VisualAssests/01-01.webp", loaderTrack);
-  artImages["01_02"]   = loadImage("VisualAssests/01-02.webp", loaderTrack);
-  artImages["01_F"]    = loadImage("VisualAssests/01-F.webp", loaderTrack);
-
-  artImages["02_01_1"] = loadImage("VisualAssests/02-01-1.webp", loaderTrack);
-  artImages["02_01_2"] = loadImage("VisualAssests/02-01-2.webp", loaderTrack);
-  artImages["02_02_1"] = loadImage("VisualAssests/02-02-1.webp", loaderTrack);
-  artImages["02_F_1"]  = loadImage("VisualAssests/02-F-1.webp", loaderTrack);
-  artImages["02_F_2"]  = loadImage("VisualAssests/02-F-2.webp", loaderTrack);
-  artImages["02_F_3"]  = loadImage("VisualAssests/02-F-3.webp", loaderTrack);
-  artImages["02_F_4"]  = loadImage("VisualAssests/02-F-4.webp", loaderTrack);
-  artImages["02_F_5"]  = loadImage("VisualAssests/02-F-5.webp", loaderTrack);
-  artImages["02_F_6"]  = loadImage("VisualAssests/02-F-6.webp", loaderTrack);
-
-  artImages["03_01_1"] = loadImage("VisualAssests/03-01-1.webp", loaderTrack);
-  artImages["03_01_2"] = loadImage("VisualAssests/03-01-2.webp", loaderTrack);
-  artImages["03_01_3"] = loadImage("VisualAssests/03-01-3.webp", loaderTrack);
-  artImages["03_01_4"] = loadImage("VisualAssests/03-01-4.webp", loaderTrack);
-  artImages["03_02"]   = loadImage("VisualAssests/03-02.webp", loaderTrack);
-  artImages["03_03"]   = loadImage("VisualAssests/03-03.webp", loaderTrack);
-  artImages["4_F"]     = loadImage("VisualAssests/4F.webp", loaderTrack);
+  // Only load assets needed for the starting area (Section 1).
+  // Section 2 & 3 images are lazy-loaded as the player approaches them.
+  spriteSheet          = loadImage("VisualAssests/Animation/Sprite.webp", loaderTrack);
+  fgImage              = loadImage("VisualAssests/foreground.webp",        loaderTrack);
+  artImages["01_01"]   = loadImage("VisualAssests/01-01.webp",             loaderTrack);
+  artImages["01_02"]   = loadImage("VisualAssests/01-02.webp",             loaderTrack);
+  artImages["01_F"]    = loadImage("VisualAssests/01-F.webp",              loaderTrack);
 }
 
 function setup() {
@@ -351,6 +370,7 @@ function draw() {
     updateCamera();
     updateInteraction();
     updateActiveNavDot();
+    checkLazyLoad();
   }
   updateAnimation();
 
@@ -466,6 +486,18 @@ function updateActiveNavDot() {
     if (d < bestDist) { bestDist = d; bestIdx = i; }
   }
   activeNavIndex = bestIdx;
+}
+
+// ---------------- lazy loading ----------------
+function checkLazyLoad() {
+  for (const section of LAZY_SECTIONS) {
+    if (!loadedSectionIds.has(section.id) && player.x >= section.triggerX) {
+      loadedSectionIds.add(section.id);
+      for (const img of section.images) {
+        artImages[img.key] = loadImage(img.file);
+      }
+    }
+  }
 }
 
 // ---------------- render ----------------
