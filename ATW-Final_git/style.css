@@ -1,0 +1,176 @@
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #000;
+  transition: opacity 0.6s ease;
+}
+#loader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+#loader-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background: #0b0b0d;
+  overflow: hidden;
+  font-family: "Gloria Hallelujah", cursive;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#stage {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#stage canvas {
+  display: block;
+  image-rendering: auto;
+  box-shadow: 0 0 60px rgba(0, 0, 0, 0.6);
+}
+
+#dialog-overlay {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 1600px;
+  height: 900px;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+  transform-origin: center center;
+}
+
+#dialog-overlay.dialog-visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+#dialog-title {
+  margin: 0;
+  color: #fff;
+  font-size: 40px;
+  text-shadow: 0 2px 22px rgba(0, 0, 0, 0.9);
+}
+
+#dialog-title a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 6px;
+  text-decoration-color: rgba(255, 255, 255, 0.45);
+  transition: text-decoration-color 0.2s;
+}
+
+#dialog-title a:hover {
+  text-decoration-color: rgba(255, 255, 255, 1);
+}
+
+#dialog-text {
+  margin: 0;
+  color: #ddd;
+  font-size: 22px;
+  text-align: center;
+  max-width: 700px;
+  line-height: 1.6;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.8);
+}
+
+#dialog-preview-wrap {
+  position: relative;
+  width: 640px;
+  height: 400px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  background: #1a1a1a;
+}
+
+#dialog-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+#dialog-preview-click {
+  position: absolute;
+  inset: 0;
+}
+
+#dialog-hint {
+  margin: 0;
+  color: #999;
+  font-size: 16px;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.6);
+}
+
+#instruction-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 1600px;
+  height: 900px;
+  z-index: 5;
+  pointer-events: none;
+  transform-origin: center center;
+  transition: opacity 0.6s ease;
+}
+
+#instruction-panel .instr-title {
+  position: absolute;
+  top: 35px;
+  left: 45px;
+  margin: 0;
+  font-size: 35px;
+  color: #1a1a1a;
+}
+
+#instruction-panel .instr-desc {
+  position: absolute;
+  top: 95px;
+  left: 45px;
+  margin: 0;
+  font-size: 24px;
+  color: #555;
+}
+
+#instruction-panel ul {
+  position: absolute;
+  top: 143px;
+  left: 45px;
+  margin: 0;
+  padding: 0 0 0 20px;
+  list-style: disc;
+  font-size: 20px;
+  color: #333;
+  line-height: 1.8;
+}
+
+#instruction-panel.instr-hidden {
+  opacity: 0;
+}
