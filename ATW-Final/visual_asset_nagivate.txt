@@ -1,0 +1,18 @@
+Sprite.png: sprite sheet for character animation. 
+    - Each block/image is 1254x1254 pixel
+    - all frames of all three animations are contained in this single sprite sheet
+    - first line: walk
+    - second line: idle
+    - thrid line: interact (trigged with upkey or w in range)
+    - you can neglect Animation folder, it is just the indivudual frames
+
+foreground: 
+    - the repetable floor line of the game
+    - should be looped head connected to tail to cover through the length of entire map
+    - top level z-index, should always be on top
+    - translates the same speed as the character moves
+
+Background: 
+    - lowest level z-index, always at the back
+    - translates x(4~10) times slower than the character
+    - spands the entire length of the map
